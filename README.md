@@ -29,48 +29,15 @@ import {
 - [npx shadcn@latest add card](https://ui.shadcn.com/docs/components/card)
   src/components/ui 路徑底下的組件都是透過此方式自動生成的
 
-## Expanding the ESLint configuration
+## 2025 年 6/2 前短期目標
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [expense tracker app](https://github.com/Vic428-human/expense-tracker-app) 原先 2025/4 月下旬是寫 react native 的 side project，
+  因為原先預計是找 手機開發的工作，但後來錄取的是網頁開發，所以稍微改一下當前的學習進度。加減學一些 tanstack-query 跟 tailwind，方便下一份工作到職後好銜接一點。
 
 ```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
 ```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    "react-x": reactX,
-    "react-dom": reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs["recommended-typescript"].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
 ```
