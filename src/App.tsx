@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
+//也可以將BrowserRouter 換成 HashRouter 使用
+import { BrowserRouter } from "react-router-dom";
+import Layout from "./components/layout";
 
 function App() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-svh">
-      {/* variant 來自於 buttonVariants 的配置，這是shadcn/ui的用法 */}
-      <Button variant={"destructive"}>Click me</Button>
-    </div>
+    <BrowserRouter>
+      <Layout>Hello</Layout>
+    </BrowserRouter>
   );
 }
 
