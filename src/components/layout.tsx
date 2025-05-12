@@ -20,7 +20,8 @@ const Layout = ({ children }: PropsWithOptionalChildren) => {
       </main>
 
       {/* 比較常規的Footer */}
-      <footer className="border-top backdrop-blur bg-white rounded-lg shadow-sm m-4 dark:bg-gray-800">
+      {/* supports-[...] 用法=>  https://www.tailwindcss.cn/docs/hover-focus-and-other-states */}
+      <footer className="border-top backdrop-blur rounded-lg shadow-sm m-4 supports-[backdrop-filter]:bg-white/25 ">
         <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © 2025 Made with ❤️ by popcornman !!
