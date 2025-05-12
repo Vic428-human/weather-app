@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Header from "./header";
 
 // import { type PropsWithChildren } from "react"; =>> PropsWithChildren referring to @types/react，有隱憂
 type PropsWithOptionalChildren<P = unknown> = P & { children?: ReactNode }; // 所以直接自己定義即可
@@ -13,12 +14,12 @@ const Layout = ({ children }: PropsWithOptionalChildren) => {
     // muted/1 => https://stackoverflow.com/questions/77180187/tailwindcss-from-muted-10-from-10-to-muted-30-to-50
     // bg-primary-muted => would set the background color to the new color.
     <div className="bg-gradient-to-br from-background to-muted/10">
-      {/* <Header /> */}
+      <Header />
+
       {/* min-h-screen 作用是将元素的最小高度设置为与视口高度相同 */}
       <main className="min-h-screen container mx-auto px-4 py-8">
         {children}
       </main>
-
       {/* 比較常規的Footer */}
       {/* supports-[...] 用法=>  https://www.tailwindcss.cn/docs/hover-focus-and-other-states */}
       <footer className="border-top backdrop-blur rounded-lg shadow-sm m-4 supports-[backdrop-filter]:bg-white/25 ">
