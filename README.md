@@ -13,11 +13,15 @@ npm i
 npm run dev
 ```
 
-- [shadcn/ui](https://ui.shadcn.com/docs/installation/vite) 使用 shadcn/ui 初始化的時候會操作的內容
-
-0. add button 也可以 add 其他組件
-
 ## CodeBase 架構說明
+
+### 與氣候 API 交互的核心邏輯
+
+說明： 用 class 的方式去定義，在大型專案中，方便維護的人直接調用，跟迭代
+
+```
+src/api/weather.ts
+```
 
 ### 不同的 footer 風格
 
@@ -69,5 +73,12 @@ import {
 } from "@/components/ui/card";
 ```
 
+說明： add button 也可以 add 其他組件，例如 Card
+
+src/components/ui 路徑底下的組件都是透過此方式自動生成的
+
 - [npx shadcn@latest add card](https://ui.shadcn.com/docs/components/card)
-  src/components/ui 路徑底下的組件都是透過此方式自動生成的
+
+使用 shadcn/ui 初始化的時候會操作的內容
+
+- [shadcn/ui](https://ui.shadcn.com/docs/installation/vite)
