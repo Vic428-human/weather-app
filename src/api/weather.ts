@@ -13,7 +13,6 @@ class WeatherApi {
         return `${endpoint}?${searchParams.toString()}` // url
     }
 
-
     // https://stackoverflow.com/questions/60231727/async-function-that-returns-a-promise-or-string-typescript
 
     // interface IResponse {
@@ -36,7 +35,7 @@ class WeatherApi {
         return res.json();
     }
 
-    async getCurrentWeather<T>({lat,lon}:Coordinates):Promise<WeatherResponse | { error: string}>{
+    async getCurrentWeather({lat,lon}:Coordinates):Promise<WeatherResponse | { error: string}>{
         const url = this.createURL(`${API_CONFIG.BASE_URL}/weather`, { lat: lat.toString(), lon:lon.toString(), units: API_CONFIG.DEFAULT_PARAMS.units});
         return this.fetchData<WeatherResponse>(url);
     }
