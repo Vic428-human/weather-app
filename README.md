@@ -15,6 +15,14 @@ npm run dev
 
 ## CodeBase 架構說明
 
+### 獲取座標地址核心
+
+說明：透過 navigator.geolocation.getCurrentPosition ，讓使用者根據 custom hook 定義好的內容，對座標地址錯誤訊息，跟刷新座標地址做處理
+
+```
+src/hooks/use-geolocation.tsx
+```
+
 ### 與氣候 API 交互的核心邏輯
 
 說明： 用 class 的方式去定義，在大型專案中，方便維護的人直接調用，跟迭代
