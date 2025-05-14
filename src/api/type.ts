@@ -25,6 +25,30 @@ export interface WeatherResponse {
   name: string;
 }
 
+export interface ForecastResponse{
+  list:Array<{
+    dt: number,
+    main: WeatherResponse['main'],
+    weather: WeatherResponse['weather'],
+    wind: WeatherResponse['wind'],
+    dt_txt: string
+  }>;
+  city:{
+    name: string,
+    country: string,
+    sunrise: number,
+    sunset: number
+  }
+}
+
+export interface GeocodingResponse{
+  name: string,
+  local_names?: Record<string, string>,
+  lat: number,
+  lon: number,
+  country: string,
+  state?: string
+}
 
 interface Main {
   temp: number;
@@ -47,5 +71,3 @@ interface Sys {
   sunrise: number;
   sunset: number;
 }
-
-
