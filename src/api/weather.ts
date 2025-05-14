@@ -1,5 +1,5 @@
 import { API_CONFIG } from "./config";
-import type { Coordinates, WeatherResponse } from "./type";
+import type { Coordinates, ForecastResponse, GeocodingResponse, WeatherResponse } from "./type";
 
 // create a class for managing for all of our apis
 class WeatherApi {
@@ -41,11 +41,20 @@ class WeatherApi {
     }
 
     // async methods always return promises => https://stackoverflow.com/questions/67128788/how-can-my-typescript-method-be-typed-as-string-if-it-is-async-and-thus-is-forc
-    async getForecast(reference: string): Promise<Response> {
-        return await fetch(reference);
+    // Call 5 day / 3 hour forecast data forecast => https://docs.openweather.co.uk/forecast5
+    async getForecast({lat,lon}:Coordinates):Promise<ForecastResponse | { error: string}>{
+        const url = this.createURL(`${API_CONFIG.BASE_URL}/forecast`, { lat: lat.toString(), lon:lon.toString(), units: API_CONFIG.DEFAULT_PARAMS.units});
+        return this.fetchData<ForecastResponse>(url);
     }
 
-    async reverseGeocoding(reference: string): Promise<Response> {
-        return await fetch(reference);
+
+    // Reverse geocoding, get name of the location (city name or area name) by using geografical coordinates (lat, lon).
+    // => https://docs.openweather.co.uk/api/geocoding-api
+    async reverseGeocoding({lat,lon}:Coordinates):Promise<GeocodingResponse[] | { error: string}>{
+        const url = this.createURL(`${API_CONFIG.GEOCODING_API}/reverse`, { lat: lat.toString(), lon:lon.toString(), limit: 1});
+        return this.fetchData<GeocodingResponse[]>(url);
     }
+
 }
+// 創建實例來 Access enopoints
+export const weatherApi = new WeatherApi();
