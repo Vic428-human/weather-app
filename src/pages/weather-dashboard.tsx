@@ -19,6 +19,7 @@ const WeatherDashboard = () => {
     getLocation,
   } = useGeoLocation();
 
+  // 用tanstack的useQuery來抓取資料
   const locationQuery = useReverseGerocodeQuery(coordinates);
   const forecastQuery = useForecastQuery(coordinates);
   const currentWeatherQuery = useWeatherQuery(coordinates);
