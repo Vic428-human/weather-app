@@ -31,6 +31,7 @@ class WeatherApi {
         const res = await fetch(url);
       
         // 也可以改成這樣寫 if (!res.ok) return { error: 'error text' };
+        // 這邊是用在當API接觸不到，例如 env的 API_KEY 的失效或錯誤，或者第三方API服務器端的錯誤
         if (!res.ok) throw new Error(`氣候API錯誤訊息：${res.statusText}`);
         return res.json();
     }
