@@ -1,7 +1,7 @@
 import type { Coordinates } from "@/api/type";
 import { useEffect, useState } from "react";
 
-interface GeoLocationState {
+interface GeolocationState {
   coordinates: Coordinates | null;
   error: string | null;
   isLoading: boolean;
@@ -9,17 +9,16 @@ interface GeoLocationState {
 
 // custom hook is a simple function in react, and useState is in this hook, and render component in all those things.
 export function useGeoLocation() {
-  const [location, setLocation] = useState<GeoLocationState>({
+  const [location, setLocation] = useState<GeolocationState>({
     coordinates: null,
     error: null,
-    isLoading: false,
+    isLoading: true,
   });
 
   //  this function will call as soon as this app is loading
   //  或者要refresh重新抓取確認是否有新的定位時
   const getLocation = () => {
     setLocation((prev) => ({ ...prev, isLoading: true, error: null }));
-
     // 若當前使用者沒有提供座標位置
     if (!navigator.geolocation) {
       setLocation({
@@ -37,12 +36,11 @@ export function useGeoLocation() {
       maximumAge: 0,
     };
 
-    function success(pos: { coords: any }) {
+    function success(pos: GeolocationPosition) {
+      console.log("[Geolocation] Success:", pos); // 加入這行
+
       const crd = pos.coords;
-      //   console.log("Your current position is:");
-      //   console.log(`Latitude : ${crd.latitude}`);
-      //   console.log(`Longitude: ${crd.longitude}`);
-      //   console.log(`More or less ${crd.accuracy} meters.`);
+      console.log("[DEBUG] Received coordinates:", crd.latitude, crd.longitude);
       setLocation({
         coordinates: {
           lat: crd.latitude,
@@ -69,11 +67,13 @@ export function useGeoLocation() {
         case err.UNKNOWN_ERROR:
           errorMsg = "An unknown error occurred.";
           break;
+        default:
+          errorMsg = "An unknown error occurred.";
       }
       //   console.warn(`ERROR(${err.code}): ${err.message}`);
       setLocation({
         coordinates: null,
-        error: null,
+        error: errorMsg,
         isLoading: false,
       });
     }
