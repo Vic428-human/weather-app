@@ -4,6 +4,11 @@ import { Button } from "@/components/ui/button";
 import { RefreshCw, AlertCircle, MapPin } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useGeoLocation } from "@/hooks/use-geolocation";
+import {
+  useForecastQuery,
+  useReverseGerocodeQuery,
+  useWeatherQuery,
+} from "@/hooks/use-weather";
 
 const WeatherDashboard = () => {
   // create custom hook for fetching my current location
@@ -14,12 +19,16 @@ const WeatherDashboard = () => {
     getLocation,
   } = useGeoLocation();
 
-  console.log("coordinates===>", { coordinates });
+  const locationQuery = useReverseGerocodeQuery(coordinates);
+  const forecastQuery = useForecastQuery(coordinates);
+  const currentWeatherQuery = useWeatherQuery(coordinates);
 
   const handleRefresh = () => {
     getLocation();
     if (coordinates) {
-      console.log("coordinates===>", { coordinates });
+      locationQuery.refetch();
+      forecastQuery.refetch();
+      currentWeatherQuery.refetch();
     }
   };
 
@@ -35,7 +44,7 @@ const WeatherDashboard = () => {
     return (
       <Alert variant="destructive">
         <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Error</AlertTitle>
+        <AlertTitle>Location Error</AlertTitle>
         <AlertDescription className="flex flex-col gap-4">
           <p>{locationError}</p>
           <Button variant="outline" onClick={getLocation} className="w-fit">
@@ -46,6 +55,27 @@ const WeatherDashboard = () => {
       </Alert>
     );
   }
+
+  if (!coordinates) {
+    return (
+      <Alert variant="destructive">
+        <AlertTitle>Location Required</AlertTitle>
+        <AlertDescription className="flex flex-col gap-4">
+          <p>Please enable your location to get the weather.</p>
+          <Button variant="outline" onClick={getLocation} className="w-fit">
+            <MapPin className="mr-2 h-4 w-4" />
+            Enable Location
+          </Button>
+        </AlertDescription>
+      </Alert>
+    );
+  }
+
+  const locationName: string = Array.isArray(locationQuery.data)
+    ? locationQuery.data[0]?.name
+    : "";
+  console.log("locationName", locationName);
+
   return (
     <div className="space-y-4">
       {/* favorite city  */}
