@@ -1,7 +1,7 @@
 import WeatherSkeleton from "@/components/loading-skeleton";
 import { Button } from "@/components/ui/button";
-
-import { RefreshCw, AlertCircle, MapPin } from "lucide-react";
+// 有時候組件引用錯地方，例如 TriangleAlert 把它引用成其他套件，但其時其他套件並不存在，也會導致網頁畫面渲染失敗，產生空白畫面
+import { RefreshCw, AlertCircle, MapPin, TriangleAlert } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useGeoLocation } from "@/hooks/use-geolocation";
 import {
@@ -19,7 +19,7 @@ const WeatherDashboard = () => {
     getLocation,
   } = useGeoLocation();
 
-  // 用tanstack的useQuery來抓取資料
+  // 用tanstack query的useQuery來抓取資料
   const locationQuery = useReverseGerocodeQuery(coordinates);
   const forecastQuery = useForecastQuery(coordinates);
   const currentWeatherQuery = useWeatherQuery(coordinates);
@@ -27,7 +27,7 @@ const WeatherDashboard = () => {
   const handleRefresh = () => {
     getLocation();
     if (coordinates) {
-      locationQuery.refetch();
+      locationQuery.refetch(); // 從 useQuery 返回的 refetch 可用於手動觸發查詢以進行數據獲取
       forecastQuery.refetch();
       currentWeatherQuery.refetch();
     }
@@ -75,12 +75,37 @@ const WeatherDashboard = () => {
   const locationName: string = Array.isArray(locationQuery.data)
     ? locationQuery.data[0]?.name
     : "";
-  console.log("locationName", locationName);
+
+  // error / refetch/ isFetching 用法完整列表 =>  https://blog.csdn.net/m0_56504343/article/details/138488519
+  // 針對 有座標位置，但是沒有正常從 api 取得資料的情況
+  if (currentWeatherQuery.error || forecastQuery.error) {
+    const errorMsg =
+      currentWeatherQuery.error?.message || forecastQuery.error?.message;
+    return (
+      <Alert variant="destructive">
+        <TriangleAlert />
+        <AlertTitle>Error</AlertTitle>
+        <AlertDescription className="flex flex-col gap-4">
+          {/* React 只能渲染字符串、数字、React 元素等（即 ReactNode），不能直接渲染 Error 对象，需要将 Error 对象转换为字符串再渲染 */}
+          {errorMsg && <p>失敗的原因: {errorMsg}</p>}
+          <Button variant="outline" onClick={handleRefresh} className="w-fit">
+            <RefreshCw className="mr-2 h-4 w-4" />
+            retry
+          </Button>
+        </AlertDescription>
+      </Alert>
+    );
+  }
+
+  // fetching的過程中
+  if (!currentWeatherQuery.data || !forecastQuery.data) {
+    return <WeatherSkeleton />;
+  }
 
   return (
     <div className="space-y-4">
       {/* favorite city  */}
-      <div className="flex items-center justify-between ">
+      <div className="flex items-center justify-between">
         {/* tracking-tight
       letter-spacing: var(--tracking-tight); /* -0.025em */}
         <h1 className="text-xl font-medium tracking-tight">My Location</h1>
@@ -88,10 +113,18 @@ const WeatherDashboard = () => {
           variant="outline"
           size="icon"
           onClick={handleRefresh}
-          // disabled={false}
+          disabled={currentWeatherQuery.isFetching || forecastQuery.isFetching} // 變免選染中重複點擊
           className="w-fit"
         >
-          <RefreshCw className="h-5 w-5" />
+          {/* 對icon做動畫效果 => https://tailwindcss.com/docs/animation */}
+          {/* fetching時 轉動icon */}
+          <RefreshCw
+            className={`h-4 w-4 ${
+              currentWeatherQuery.isFetching || forecastQuery.isFetching
+                ? "animate-spin"
+                : ""
+            } `}
+          />
         </Button>
       </div>
       {/* get current and hourly weather */}
