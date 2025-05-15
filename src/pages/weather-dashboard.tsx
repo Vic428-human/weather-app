@@ -9,6 +9,7 @@ import {
   useReverseGerocodeQuery,
   useWeatherQuery,
 } from "@/hooks/use-weather";
+import CurrentWeather from "@/components/current-weather";
 
 const WeatherDashboard = () => {
   // create custom hook for fetching my current location
@@ -72,9 +73,13 @@ const WeatherDashboard = () => {
     );
   }
 
-  const locationName: string = Array.isArray(locationQuery.data)
-    ? locationQuery.data[0]?.name
-    : "";
+  const locationName = locationQuery.data?.[0];
+
+  console.log("locationName", locationName);
+
+  // const locationName: string = Array.isArray(locationQuery.data)
+  //   ? locationQuery.data[0]?.name
+  //   : "";
 
   // error / refetch/ isFetching 用法完整列表 =>  https://blog.csdn.net/m0_56504343/article/details/138488519
   // 針對 有座標位置，但是沒有正常從 api 取得資料的情況
@@ -128,6 +133,20 @@ const WeatherDashboard = () => {
         </Button>
       </div>
       {/* get current and hourly weather */}
+      <div className="grid gap-6">
+        <div>
+          {/* current weather */}
+          <CurrentWeather
+            data={currentWeatherQuery.data}
+            locationName={locationName}
+          />
+          {/* hourly temperature */}
+        </div>
+        <div>
+          {/* details */}
+          {/* forecast */}
+        </div>
+      </div>
     </div>
   );
 };
