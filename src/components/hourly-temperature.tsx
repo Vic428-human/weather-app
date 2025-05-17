@@ -8,9 +8,10 @@ import {
   LineChart,
   Legend,
   Line,
-} from "recharts";
+} from "recharts"; //相關配置參考 https://blog.csdn.net/m0_73734137/article/details/135436840
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { format } from "date-fns";
+import { ArrowDown, ArrowUp } from "lucide-react";
 
 interface HourlyTempratureProps {
   data: ForecastResponse;
@@ -40,6 +41,37 @@ const HourlyTemprature = ({ data }: HourlyTempratureProps) => {
 
   const formatXAxis = (tickFormat: any) => {
     return `${tickFormat} 度`;
+  };
+
+  // payload => contain all the value，例如
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      // console.log("payload===>", payload); index 0 => 是當前溫度 , index 1 => 是感覺溫度
+      return (
+        <div className="round-lg border bg-amber-200 p-2 shadow-sm">
+          <div className="grid grid-cols-2 gap-2">
+            <div className="flex flex-col">
+              <span className="flex items-center gap-1 text-[0.70rem] uppercase text-muted-foreground">
+                現在溫度 <ArrowDown className="h-3 w-3" />
+              </span>
+              <span className="text-blue-500 font-bold">
+                {payload[0].value} °C
+              </span>
+            </div>
+            <div className="flex flex-col">
+              <span className="flex items-center gap-1 text-[0.70rem] uppercase text-muted-foreground ">
+                體感溫度 <ArrowUp className="h-3 w-3" />
+              </span>
+              <span className="text-red-500 font-bold">
+                {payload[1].value} °C
+              </span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    return null;
   };
 
   return (
@@ -73,10 +105,24 @@ const HourlyTemprature = ({ data }: HourlyTempratureProps) => {
                 // tickFormatter 用法 => https://stackoverflow.com/questions/70055159/recharts-tickformatter-not-formatting-date
                 tickFormatter={(tick) => formatXAxis(tick)}
               />
-              {/* <Tooltip />
-              <Legend /> */}
-              <Line type="monotone" dataKey="temp" stroke="#8884d8" />
-              <Line type="monotone" dataKey="feels_like" stroke="#82ca9d" />
+              {/* 設定滑鼠懸停時顯示的提示框。 */}
+              <Tooltip content={<CustomTooltip />} />
+              {/* <Legend /> */}
+              <Line
+                type="monotone"
+                dataKey="temp"
+                stroke="#8884d8"
+                strokeWidth={2}
+                dot={false}
+              />
+              <Line
+                type="monotone"
+                dataKey="feels_like"
+                stroke="#82ca9d"
+                strokeWidth={2}
+                dot={false}
+                strokeDasharray="12"
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>
