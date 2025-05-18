@@ -18,10 +18,26 @@ export interface WeatherCondition {
 export interface WeatherResponse {
   coord: Coordinates;
   weather: WeatherCondition[];
-  main: Main;
-  wind: Wind;
+  main: {
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    humidity: number;
+    sea_level: number;
+    grnd_level: number;
+  };
+  wind: {
+    speed: number;
+    deg: number;
+  };
   dt: number;
-  sys: Sys;
+  sys: {
+    country: string;
+    sunrise: number;
+    sunset: number;
+  };
   name: string;
 }
 
@@ -50,24 +66,3 @@ export interface GeocodingResponse{
   state?: string
 }
 
-interface Main {
-  temp: number;
-  feels_like: number;
-  temp_min: number;
-  temp_max: number;
-  pressure: number;
-  humidity: number;
-  sea_level: number;
-  grnd_level: number;
-}
-
-interface Wind {
-  speed: number;
-  deg: number;
-}
-
-interface Sys {
-  country: string;
-  sunrise: number;
-  sunset: number;
-}
