@@ -12,6 +12,7 @@ import {
 import CurrentWeather from "@/components/current-weather";
 import HourlyTemprature from "@/components/hourly-temperature";
 import WeatherDetails from "@/components/weatehr-details";
+import WeatherForecast from "@/components/weather-forecast";
 
 const WeatherDashboard = () => {
   // create custom hook for fetching my current location
@@ -139,10 +140,12 @@ const WeatherDashboard = () => {
           {/* hourly temperature */}
           <HourlyTemprature data={forecastQuery.data} />
         </div>
-        <div>
+        {/* items-start => 往上垂直對齊 */}
+        <div className="gap-6 grid md:grid-cols-2 items-start">
           {/* details */}
           <WeatherDetails data={currentWeatherQuery.data} />
           {/* forecast */}
+          <WeatherForecast data={forecastQuery.data} />
         </div>
       </div>
     </div>
