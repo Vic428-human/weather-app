@@ -144,7 +144,7 @@ const WeatherDashboard = () => {
         <div className="gap-6 grid md:grid-cols-2 items-start">
           {/* details */}
           <WeatherDetails data={currentWeatherQuery.data} />
-          {/* forecast */}
+          {/* forecast 抓得是除了今天以及未來五天的氣候預報*/}
           <WeatherForecast data={forecastQuery.data} />
         </div>
       </div>
