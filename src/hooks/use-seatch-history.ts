@@ -30,9 +30,9 @@ export function useSearchHistory(){
         
         // 當前查詢的搜尋內容
         const newSearch : SearchHistoryItem = {
-          ...search,
+          ...search, // 看  addHistory.mutate 傳了什麼過來
           id: `${search.lat}-${search.lon}-${new Date()}`,
-          searchedAt: Date.now(),
+          searchedAt: Date.now(), // 抓的是當前這個時區的時間
         }
 
         // 不包含當前最新內容，只找出歷史紀錄
