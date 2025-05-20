@@ -1,6 +1,7 @@
 import type { ForecastResponse } from "@/api/type";
 import { format } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { ArrowDown, ArrowUp, Droplets, Wind } from "lucide-react";
 
 interface WeatherForecastProps {
   data: ForecastResponse;
@@ -47,11 +48,12 @@ const WeatherForecast = ({ data }: WeatherForecastProps) => {
     }
     return accumulator;
   }, {} as Record<string, DailyForecast>); // {} 是 initialValue
-  console.log("dailyForecast", dailyForecast);
   //   Object.values() 是直接取得所有 property value，並以陣列回傳。看一個簡單的範例： => https://ithelp.ithome.com.tw/articles/10239942
   //   這裡回傳的有6筆
-  const nextDays = Object.values(dailyForecast).slice(0, 6); // 剛才的key就會不在了，保留的是子物件
-  console.log(nextDays);
+  const nextDays = Object.values(dailyForecast).slice(0, 6); // 剛才的key就會不在了，保留的是子物件;
+
+  const formatTemp = (temp: number) => `${Math.round(temp)}°C`;
+
   return (
     <Card>
       <CardHeader>
@@ -61,13 +63,38 @@ const WeatherForecast = ({ data }: WeatherForecastProps) => {
         <div className="grid gap-2">
           {nextDays.map((day) => {
             return (
-              <div key={day.date}>
+              <div
+                key={day.date}
+                className="grid grid-cols-3 gap-4 items-center border rounded-lg p-4"
+              >
                 <div>
-                  <p>{format(new Date(day.date * 1000), "EEE, MMM d yyyy")}</p>
-                  <p>{day.weather.description}</p>
+                  <p className="font-medium">
+                    {format(new Date(day.date * 1000), "EEE, MMM d yyyy")}
+                  </p>
+                  <p className="text-sm text-muted-foreground capitalize">
+                    {day.weather.description}
+                  </p>
                 </div>
-                <div></div>
-                <div></div>
+                <div className="flex justify-between gap-4">
+                  <span className="flex items-center text-blue-500">
+                    <ArrowDown />
+                    {formatTemp(day.temp_min)}
+                  </span>
+                  <span className="flex items-center text-red-500">
+                    <ArrowUp />
+                    {formatTemp(day.temp_max)}
+                  </span>
+                </div>
+                <div className="flex justify-between gap-4">
+                  <span className="flex items-center gap-1">
+                    <Droplets className="h-4 w-4 text-blue-500" />
+                    <span className="text-sm">{day.humidity}%</span>
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Wind className="h-4 w-4 text-blue-500" />
+                    <span className="text-sm">{day.wind}m/s</span>
+                  </span>
+                </div>
               </div>
             );
           })}
