@@ -16,7 +16,7 @@ const CurrentWeather = ({ data, locationName }: CurrentWeatherProps) => {
 
   // 四捨五入
   const formatTemp = (temp: number) => `${Math.round(temp)}°C`;
-  console.log("currentWeather", currentWeather);
+
   return (
     <Card className="overflow-hidden">
       <CardContent className="p-6">
