@@ -55,7 +55,15 @@ class WeatherApi {
         const url = this.createURL(`${API_CONFIG.GEOCODING_API}/reverse`, { lat: lat.toString(), lon:lon.toString(), limit: 1});
         return this.fetchData<GeocodingResponse[]>(url);
     }
-
+    // https://docs.openweather.co.uk/api/geocoding-api#direct => Direct geocoding
+    // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
+    async searchLocations(query:string):Promise<GeocodingResponse[]>{
+        const url = this.createURL(`${API_CONFIG.GEOCODING_API}/direct`, { 
+            q: query,  // City name, state code (only for the US) and country code divided by comma.
+            limit: 5 // Number of the locations in the API response (up to 5 results can be returned in the API response)
+        });
+        return this.fetchData<GeocodingResponse[]>(url);
+    }   
 }
 // 創建實例來 Access enopoints
 export const weatherApi = new WeatherApi();
