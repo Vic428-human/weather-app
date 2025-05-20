@@ -17,7 +17,7 @@ const Header = () => {
             className="h-14"
           />
         </Link>
-        <div>
+        <div className="flex gap-4">
           {/* search */}
           <CitySeatch />
           {/* theme toggle  */}
