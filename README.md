@@ -15,6 +15,25 @@ npm run dev
 
 ## CodeBase 架構說明
 
+### 規劃 添加歷史訊息跟清理歷史訊息的邏
+
+說明：
+
+1. historyQuery: 透過 tanstack query 獲取歷史訊息，預設是空陣列，之後會被動的因為 addHistory 跟 clearHistory 這兩個 useMutation 觸發而跟著更新。
+2. 透過 useMutation 製作的 addHistory 跟 clearHistory 歷史訊息更新功能，歷史訊息透過 useLocalStorage 這個 useHook，把更新後的內容，存在本地端，然後同樣透過 useLocalStorage 回傳新的 state(history) 。 historyQuery 這個 useQuery 就會獲取新的 history 的內容。
+3. 因為 addHistory 跟 clearHistory 這兩個 useMutation 的觸發，讓值得以更新，
+   再藉著 tanstack 的 useQuery 緩存機制，節省資源，避免重複渲染，如有變化，則重新拉取更新後的內容。
+
+```
+src/hooks/use-seatch-history.ts
+```
+
+### 規劃 localStorage 的 set 跟 get 在 useHook
+
+```
+src/hooks/use-local-storage.ts
+```
+
 ### 獲取座標地址核心
 
 說明：透過 navigator.geolocation.getCurrentPosition ，讓使用者根據 custom hook 定義好的內容，對座標地址錯誤訊息，跟刷新座標地址做處理
