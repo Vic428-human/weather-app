@@ -1,7 +1,7 @@
 import WeatherSkeleton from "@/components/loading-skeleton";
 import { Button } from "@/components/ui/button";
 // 有時候組件引用錯地方，例如 TriangleAlert 把它引用成其他套件，但其時其他套件並不存在，也會導致網頁畫面渲染失敗，產生空白畫面
-import { RefreshCw, AlertCircle, MapPin, TriangleAlert } from "lucide-react";
+import { RefreshCw, AlertCircle, MapPin, AlertTriangle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useGeoLocation } from "@/hooks/use-geolocation";
 import {
@@ -79,13 +79,13 @@ const WeatherDashboard = () => {
   const locationName = locationQuery.data?.[0];
 
   // error / refetch/ isFetching 用法完整列表 =>  https://blog.csdn.net/m0_56504343/article/details/138488519
-  // 針對 有座標位置，但是沒有正常從 api 取得資料的情況
+  // 有提供座標位置，但是沒有正常從 api 獲取資料的情況
   if (currentWeatherQuery.error || forecastQuery.error) {
     const errorMsg =
       currentWeatherQuery.error?.message || forecastQuery.error?.message;
     return (
       <Alert variant="destructive">
-        <TriangleAlert />
+        <AlertTriangle />
         <AlertTitle>Error</AlertTitle>
         <AlertDescription className="flex flex-col gap-4">
           {/* React 只能渲染字符串、数字、React 元素等（即 ReactNode），不能直接渲染 Error 对象，需要将 Error 对象转换为字符串再渲染 */}
@@ -110,7 +110,7 @@ const WeatherDashboard = () => {
       <div className="flex items-center justify-between">
         {/* tracking-tight
       letter-spacing: var(--tracking-tight); /* -0.025em */}
-        <h1 className="text-xl font-medium tracking-tight">My Location</h1>
+        <h1 className="text-xl font-medium tracking-tight">使用者當前所在地</h1>
         <Button
           variant="outline"
           size="icon"
