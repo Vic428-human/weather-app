@@ -74,17 +74,20 @@ const CitySeatch = () => {
           {history.length > 0 && (
             <>
               <CommandSeparator />
-              <div className="flex items-center justify-between px-2 my-2">
-                <p>最近搜尋紀錄:</p>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => clearHistory.mutate()}
-                >
-                  <XCircle className="h-4 w-4" />
-                  Clear
-                </Button>
-              </div>
+              <CommandGroup>
+                <div className="flex items-center justify-between px-2 my-2">
+                  <p className="text-xs text-muted-foreground">最近搜尋紀錄:</p>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => clearHistory.mutate()}
+                  >
+                    <XCircle className="h-4 w-4" />
+                    Clear
+                  </Button>
+                </div>
+              </CommandGroup>
+
               {history.map((location) => {
                 return (
                   <CommandItem
