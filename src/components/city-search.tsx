@@ -41,8 +41,8 @@ const CitySeatch = () => {
       query,
     });
 
-    // 做某些事情的時候切換到Count頁面
-    navigate(`/city/${name}??lat=${lat}&lon=${lon}`); // 例如： 搜尋 new taipei => New%20Taipei??lat=25.012&lon=121.45 => %20 === 空格
+    // 把一些特定params資訊帶給某個新的頁面，這部分的params是動態刷新的
+    navigate(`/city/${name}??lat=${lat}&lon=${lon}&country=${country}`); // 例如： 搜尋 new taipei => New%20Taipei??lat=25.012&lon=121.45 => %20 === 空格
   };
   return (
     <>

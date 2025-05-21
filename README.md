@@ -15,6 +15,12 @@ npm run dev
 
 ## CodeBase 架構說明
 
+### 比較 number 跟 parseFloat 的使用上差異
+
+```
+src/pages/city-page.tsx
+```
+
 ### 規劃 添加歷史訊息跟清理歷史訊息的邏
 
 說明：
