@@ -90,6 +90,13 @@ const WeatherDashboard = () => {
         <AlertDescription className="flex flex-col gap-4">
           {/* React 只能渲染字符串、数字、React 元素等（即 ReactNode），不能直接渲染 Error 对象，需要将 Error 对象转换为字符串再渲染 */}
           {errorMsg && <p>失敗的原因: {errorMsg}</p>}
+          {errorMsg && (
+            <p>
+              若你是用githubbox方式開啟，會因為缺少API
+              key的關係，而無法正常訪問。
+              <a href="https://docs.openweather.co.uk/current">API key</a>。
+            </p>
+          )}
           <Button variant="outline" onClick={handleRefresh} className="w-fit">
             <RefreshCw className="mr-2 h-4 w-4" />
             retry
