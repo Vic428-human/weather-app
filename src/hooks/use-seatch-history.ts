@@ -14,12 +14,36 @@ interface SearchHistoryItem {
 }
 export function useSearchHistory(){
     const [history, setHistory] = useLocalStorage<SearchHistoryItem[]>('search-history',[])
+    
+    const queryClient = useQueryClient()
 
     const historyQuery = useQuery({
         queryKey:['search-history'],
         queryFn:() => history, // 一個 function 回傳一個 Promise 物件，必須 resolve 回傳 data 或是 throw error，data 不能是 undefined。
         initialData: history, // Provide initialData to a query to prepopulate its cache if empty
     })
+
+      // useMutation：用於處理資料的建立、更新或刪除操作。它不會快取結果，而是主要用於觸發變化。
+      // 特性：觸發式操作、內建狀態管理、與快取結合
+      // https://tanstack.com/query/latest/docs/framework/react/guides/mutations
+    const addHistory = useMutation({
+        mutationFn: async (search: Omit<SearchHistoryItem, "id" | "searchedAt">) => await searchHistoryItem(search),
+        onSuccess: (newHistory) => {
+          // Replace the search-history with the newHistory
+          queryClient.setQueryData(['search-history'], newHistory)
+        },
+      })
+
+    const clearHistory = useMutation({
+      mutationFn: async () => {
+        setHistory([]);
+        return [];
+      },
+      onSuccess: () => {
+        queryClient.setQueryData(["search-history"], []);
+      },
+    });
+
 
     const searchHistoryItem = async(search: Omit<SearchHistoryItem,'id'| 'searchedAt'>) => {
         
@@ -41,28 +65,6 @@ export function useSearchHistory(){
         // Return context with the newHistory
         return newHistory;
     }
-
-    const queryClient = useQueryClient()
-      // useMutation：用於處理資料的建立、更新或刪除操作。它不會快取結果，而是主要用於觸發變化。
-      // 特性：觸發式操作、內建狀態管理、與快取結合
-      // https://tanstack.com/query/latest/docs/framework/react/guides/mutations
-    const addHistory = useMutation({
-        mutationFn: async (search: Omit<SearchHistoryItem, "id" | "searchedAt">) => await searchHistoryItem(search),
-        onSuccess: (newHistory) => {
-          // Replace the search-history with the newHistory
-          queryClient.setQueryData(['search-history'], newHistory)
-        },
-      })
-
-    const clearHistory = useMutation({
-      mutationFn: async () => {
-        setHistory([]);
-        return [];
-      },
-      onSuccess: () => {
-        queryClient.setQueryData(["search-history"], []);
-      },
-    });
 
     return  {
       history: historyQuery.data ?? [],
