@@ -5,15 +5,10 @@ import WeatherDashboard from "./pages/weather-dashboard";
 import CityPage from "./pages/city-page";
 // 如果我們既不想要每次使用非同步狀態都彈出一個 loading 阻擋使用者操作，
 // 又不想自己手動管理複雜的非同步狀態的話 Cache 管理 / 輪詢 / 分頁快取 / 自動重載 / 無限滾動 / 視窗聚焦自動重載 / 離線資料 / 失敗重試
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // 開發者工具來幫助調試快取
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "sonner";
 
 function App() {
   // Create a client
@@ -29,6 +24,7 @@ function App() {
               <Route element={<CityPage />} path="/city/:cityName"></Route>
             </Routes>
           </Layout>
+          <Toaster richColors toastOptions={{}} />
         </ThemeProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />

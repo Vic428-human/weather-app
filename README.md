@@ -36,6 +36,8 @@ src/hooks/use-seatch-history.ts
 
 ### 規劃 localStorage 的 set 跟 get 在 useHook
 
+說明： 可以被重複調用
+
 ```
 src/hooks/use-local-storage.ts
 ```
