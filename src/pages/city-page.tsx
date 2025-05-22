@@ -1,4 +1,5 @@
 import CurrentWeather from "@/components/current-weather";
+import FavoriteButton from "@/components/favorite-button";
 import HourlyTemprature from "@/components/hourly-temperature";
 import WeatherSkeleton from "@/components/loading-skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -53,7 +54,6 @@ const CityPage = () => {
   if (!currentWeatherQuery.data || !forecastQuery.data || !params.cityName) {
     return <WeatherSkeleton />;
   }
-  console.log("currentWeatherQuery.data==>", currentWeatherQuery.data);
 
   return (
     <div>
@@ -66,6 +66,11 @@ const CityPage = () => {
             所在城市：{params.cityName}, 所在國家：{country}
           </h1>
           {/* favorite button */}
+          <div>
+            <FavoriteButton
+              data={{ ...currentWeatherQuery.data, name: params.cityName }}
+            />
+          </div>
         </div>
         {/* get current and hourly weather */}
         <div className="grid gap-6">
