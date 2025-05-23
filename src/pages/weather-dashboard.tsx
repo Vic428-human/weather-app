@@ -13,6 +13,7 @@ import CurrentWeather from "@/components/current-weather";
 import HourlyTemprature from "@/components/hourly-temperature";
 import WeatherDetails from "@/components/weatehr-details";
 import WeatherForecast from "@/components/weather-forecast";
+import FavoriteCities from "@/components/favorite-cities";
 
 const WeatherDashboard = () => {
   // create custom hook for fetching my current location
@@ -114,6 +115,7 @@ const WeatherDashboard = () => {
   return (
     <div className="space-y-4">
       {/* favorite city  */}
+      <FavoriteCities />
       <div className="flex items-center justify-between">
         {/* tracking-tight
       letter-spacing: var(--tracking-tight); /* -0.025em */}
