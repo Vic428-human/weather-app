@@ -35,7 +35,7 @@ const FavoriteButton = ({ data }: FavoriteWeatherProps) => {
       onClick={handleToggleFavorite}
     >
       {/* Use the fill-current utility to set the fill color to the current text color: */}
-      <Star className={`h-4 w-4 ${isCurrentFavorite ? " fill-current" : ""}`} />
+      <Star className={`h-4 w-4 ${isCurrentFavorite ? "fill-current" : ""}`} />
     </Button>
   );
 };

@@ -24,7 +24,6 @@ export function useWeatherQuery(coordinates: Coordinates | null) {
         enabled: !!coordinates // 用來把一個值「強制轉換成布林值」，兩個驚嘆號 !!：等於「取反再取反」，效果就是把任何值轉成對應的布林值
         // 也就是說，如果 coordinates 是 null 或 undefined，這個查詢就不會被執行
         // enabled 屬性在 React Query（useQuery）中用來控制查詢是否自動執行。預設情況下，enabled 為 true，查詢會在組件掛載時自動發送。如果你將 enabled 設為 false，查詢則不會自動執行，僅在你手動觸發時（例如呼叫 refetch()）才會發送請求
-   
     }) 
 }
 

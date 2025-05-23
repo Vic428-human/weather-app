@@ -49,8 +49,9 @@ export function useFavorite() {
       setFavorites(newFavorites);
       return newFavorites;
     },
-    onSuccess: () => {
-      queryClient.setQueryData(["search-history"], []);
+     onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["favorites"] });
     },
   });
 

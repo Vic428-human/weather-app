@@ -66,9 +66,6 @@ const CitySeatch = () => {
           {query.length > 2 && !isLoading && (
             <CommandEmpty>No Cities found.</CommandEmpty>
           )}
-          <CommandGroup heading="最喜愛的">
-            <CommandItem>尚未製作</CommandItem>
-          </CommandGroup>
 
           {/* 實際有查詢過的歷史紀錄 */}
           {history.length > 0 && (
