@@ -1,7 +1,7 @@
 import { useFavorite } from "@/hooks/use-favoriate";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useNavigate } from "react-router-dom";
-import { useWeatherQuery } from "@/hooks/use-weather";
+import { useLocationSearch, useWeatherQuery } from "@/hooks/use-weather";
 import { Button } from "./ui/button";
 import { Loader2, X } from "lucide-react";
 import { toast } from "sonner";
@@ -74,6 +74,7 @@ function FavoriteCityTablet({
   // 二、isLoading是指數據是否正在加載的狀態，通常用於判斷請求是否還在進行中。當isLoading為true時，表示數據正在加載中，當isLoading為false時，表示數據加載完成。
   // 三、isFetching是指數據是否正在進行更新的狀態，通常用於判斷數據是否正在進行更新操作，比如重新加載數據或者刷新數據。當isFetching為true時，表示數據正在進行更新操作，當isFetching為false時，表示數據更新操作完成。
   const { data: weather, isLoading } = useWeatherQuery({ lat, lon });
+  const { data: locations } = useLocationSearch(name || "");
 
   //  點選個別的我的最愛的城市，會跳到該城市的天氣頁面
   return (
@@ -111,9 +112,9 @@ function FavoriteCityTablet({
             src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
           />
           <div>
-            <p className="font-medium">{weather.name}</p>
+            <p className="font-medium">{name}</p>
             <p className="text-xs font-muted-foreground">
-              {weather.sys.country}
+              {locations?.[0]?.country || ""}
             </p>
           </div>
           <div className="ml-auto text-right">

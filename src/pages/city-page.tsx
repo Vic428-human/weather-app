@@ -5,7 +5,12 @@ import WeatherSkeleton from "@/components/loading-skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import WeatherDetails from "@/components/weatehr-details";
 import WeatherForecast from "@/components/weather-forecast";
-import { useForecastQuery, useWeatherQuery } from "@/hooks/use-weather";
+import {
+  useForecastQuery,
+  useLocationSearch,
+  useReverseGerocodeQuery,
+  useWeatherQuery,
+} from "@/hooks/use-weather";
 import { AlertTriangle } from "lucide-react";
 import { useSearchParams, useParams } from "react-router-dom"; //  read and modify the query string in the URL for the current location.
 
@@ -26,13 +31,13 @@ const CityPage = () => {
 
   const lat = parseFloat(searchParams.get("lat") || "0");
   const lon = parseFloat(searchParams.get("lon") || "0");
-  const country = searchParams.get("country");
 
   const coordinates = { lat, lon };
 
   // 知道座標後，就能跟之前一樣，從 tanstack query 方式調用API的回傳數據了
   const forecastQuery = useForecastQuery(coordinates);
   const currentWeatherQuery = useWeatherQuery(coordinates);
+  const { data: locations } = useLocationSearch(params.cityName || "");
 
   if (currentWeatherQuery.error || forecastQuery.error) {
     const errorMsg =
@@ -63,7 +68,8 @@ const CityPage = () => {
           {/* tracking-tight
       letter-spacing: var(--tracking-tight); /* -0.025em */}
           <h1 className="text-pink-300 font-medium tracking-tight text-3xl">
-            所在城市：{params.cityName}, 所在國家：{country}
+            所在城市：{params.cityName}, 所在國家：
+            {locations?.[0]?.country || ""}
           </h1>
           {/* favorite button */}
           <div>
