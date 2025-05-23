@@ -5,10 +5,15 @@
 
 ## 畫面示意圖
 
-![當前所在地的氣候](https://github.com/Vic428-human/weather-app/blob/9da760d18511d7b30f8d4989b2436a50471fbfaa/currentLocation.png)
-![某個特定城市的氣候](https://github.com/Vic428-human/weather-app/blob/9da760d18511d7b30f8d4989b2436a50471fbfaa/cityName.png)
+1. 當前「所在地」的氣候報表
+   功能：查詢歷史紀錄(精準至當時確切時間)/我的最愛(橫向滾動)/串接當天氣溫跟體感溫度曲線圖比對 API/氣象指標 API/未來 5 天的氣候預報 API/dark & light mode 切換
+   ![當前所在地的氣候](https://github.com/Vic428-human/weather-app/blob/9da760d18511d7b30f8d4989b2436a50471fbfaa/currentLocation.png)
 
-## React + TypeScript + Vite Getting Start
+2. 某個「特定城市」的氣候報表
+   加入與取消訂閱我的最愛/每次訂閱都採用 sonner 方式彈窗(比較酷炫)
+   ![某個特定城市的氣候](https://github.com/Vic428-human/weather-app/blob/9da760d18511d7b30f8d4989b2436a50471fbfaa/cityName.png)
+
+## React + TypeScript + Vite 啟用專案
 
 0. node -v
 
