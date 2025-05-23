@@ -1,7 +1,7 @@
-## 2025 年 6/2 前短期目標
+## 2025 年 6/2 前短期目標[已於 05/24 完成]
 
-- [expense tracker app](https://github.com/Vic428-human/expense-tracker-app) 原先 2025/4 月下旬是寫 react native 的 side project，
-  因為原先預計是找 手機開發的工作，但後來錄取的是網頁開發，所以稍微改一下當前的學習進度。加減學一些 tanstack-query 跟 tailwind，方便下一份工作到職後好銜接一點。
+- 2025/5/24 更新： 目前此 side project 已完成，短時間內不會再更新，下一階段專案進度為 [訂閱追蹤的 API 架構規劃](https://github.com/Vic428-human/subscription-tracker-nodejs-api-architecture)
+- [expense tracker app](https://github.com/Vic428-human/expense-tracker-app) 4 月下旬進度
 
 ## React + TypeScript + Vite Getting Start
 
