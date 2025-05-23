@@ -3,6 +3,11 @@
 - 2025/5/24 更新： 目前此 side project 已完成，短時間內不會再更新，下一階段專案進度為 [訂閱追蹤的 API 架構規劃](https://github.com/Vic428-human/subscription-tracker-nodejs-api-architecture)
 - [expense tracker app](https://github.com/Vic428-human/expense-tracker-app) 4 月下旬進度
 
+## 畫面示意圖
+
+![當前所在地的氣候](https://github.com/Vic428-human/weather-app/blob/9da760d18511d7b30f8d4989b2436a50471fbfaa/currentLocation.png)
+![某個特定城市的氣候](https://github.com/Vic428-human/weather-app/blob/9da760d18511d7b30f8d4989b2436a50471fbfaa/cityName.png)
+
 ## React + TypeScript + Vite Getting Start
 
 0. node -v
