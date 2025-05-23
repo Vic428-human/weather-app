@@ -6,7 +6,7 @@
 ## 畫面示意圖
 
 1. 當前「所在地」的氣候報表
-   功能：查詢歷史紀錄(精準至當時確切時間)/我的最愛(橫向滾動)/串接當天氣溫跟體感溫度曲線圖比對 API/氣象指標 API/未來 5 天的氣候預報 API/dark & light mode 切換
+   功能：查詢歷史紀錄(精準至當時確切時間)/我的最愛(橫向滾動)/串接當天氣溫跟體感溫度曲線圖比對 API/氣象指標 API/未來 5 天的氣候預報 API/dark & light mode 切換/ 清除所有歷史紀錄
    ![當前所在地的氣候](https://github.com/Vic428-human/weather-app/blob/af4cecdc74e94a7cc7ccb949549ffab75d0ae9f5/cityName.png)
 
 2. 某個「特定城市」的氣候報表
